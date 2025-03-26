@@ -387,20 +387,18 @@ class SpaceShip(SphereCollideObject):
        
 
 
-        if('Drone' in strippedString or strippedString == 'Planet' or 'Space Station' in strippedString):
+        if 'Drone' in strippedString or 'Planet' in strippedString or 'SpaceStation' in strippedString:
             print(victim, ' hit at ', intoPosition)
             self.DestroyObject(victim, intoPosition)
             
-
-        if ('Drone' in strippedString or 'Planet' in strippedString or 'Space Station' in strippedString and shooter in LargeMissile.AltIntervals):
-            print(victim, ' hit at ', intoPosition)
-            self.DestroyObject(victim, intoPosition)
-            self.setAltParticles()
-            LargeMissile.AltIntervals[shooter].finish()
             
             
         if shooter in Missile.Intervals:
             Missile.Intervals[shooter].finish()
+
+        elif shooter in LargeMissile.AltIntervals:
+            print(victim, " hit at", intoPosition)
+            self.AltDestroyObject(victim, intoPosition)
 
         
         print(shooter + ' is done.')
@@ -416,6 +414,13 @@ class SpaceShip(SphereCollideObject):
         self.explodeNode.setPos(hitPosition)
         self.Explode()
         
+    def AltDestroyObject(self, hitID, hitPosition):
+        nodeID = self.render.find(hitID)
+        nodeID.detachNode()
+        self.setAltParticles()
+
+        self.explodeNode.setPos(hitPosition)
+        self.Explode()
 
    
 

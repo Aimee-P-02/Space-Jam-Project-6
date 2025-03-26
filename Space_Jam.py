@@ -20,10 +20,7 @@ class MyApp(ShowBase):
         self.cTrav = CollisionTraverser()
         self.cTrav.traverse(self.render)
 
-        self.setUpUniverse()
-        self.setUpPlanets()
-        self.setUpSpaceShip()
-        self.setUpSpaceStation()
+        self.setUpScene()
         self.setCamera() 
 
         self.pusher = CollisionHandlerPusher()
@@ -55,12 +52,9 @@ class MyApp(ShowBase):
         self.DroneCircleY(self.Planet4, nickName, theta)
         self.DroneCircleZ(self.Planet4, nickName, theta)
 
-    def setUpUniverse(self):
+    def setUpScene(self):
         self.Universe = spaceJamClasses.Universe(self.loader,"./Assets/Universe/Universe.x",self.render,"Universe","./Assets/Universe/universe_bg.jpeg",(0,0,0), 10000)
         
-
-
-    def setUpPlanets(self):
         self.Planet1 = spaceJamClasses.Planet(self.loader, "./Assets/Planets/protoPlanet.x", self.render, "Planet1", "./Assets/Planets/sprinkle_texture.jpg", (150, 5000, 67), 350)
 
         self.Planet2 = spaceJamClasses.Planet(self.loader, "./Assets/Planets/protoPlanet.x", self.render, "Planet2", "./Assets/Planets/planet texture2.png", (-4500, 1000, 34), 450)
@@ -73,11 +67,8 @@ class MyApp(ShowBase):
         
         self.Planet6 = spaceJamClasses.Planet(self.loader, "./Assets/Planets/protoPlanet.x", self.render, "Planet6", "./Assets/Planets/titan_texture.jpg", (7500, -3500, 90), 350)
         
-
-    def setUpSpaceShip(self):
         self.spaceShip = playerClass.SpaceShip(self.loader, self.cTrav, self.taskMgr, self.accept, "./Assets/Spaceships/Dumbledore.egg", self.render, "Spaceship", "./Assets/Spaceships/spacejet_C.png", (1500,1000, -100), 50)
 
-    def setUpSpaceStation(self):
         self.spaceStation = spaceJamClasses.SpaceStation(self.loader, "./Assets/Space Station/spaceStation.egg", self.render,"SpaceStation", "./Assets/Space Station/SpaceStation1_Dif2.png", (750, 275, 90), 25)
         
     def drawBaseBallSeams(self, centralObject, droneName, step, numSeams, radius = 1):

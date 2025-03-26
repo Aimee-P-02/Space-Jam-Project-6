@@ -2,7 +2,7 @@ from direct.showbase.ShowBase import ShowBase
 from panda3d.core import *
 from direct.task import Task
 from CollideObjectBase import *
-from panda3d.core import NodePath 
+
 
 
 
@@ -26,7 +26,7 @@ class Drone(SphereCollideObject):
         self.modelNode.setPos(posVec)
         self.modelNode.setScale(scaleVec)
 
-        self.modelNode.setName(nodeName)
+        #self.modelNode.setName(nodeName)
         tex = loader.loadTexture(texPath)
         self.modelNode.setTexture(tex, 1)
 
