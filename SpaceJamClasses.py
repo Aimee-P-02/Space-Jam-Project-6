@@ -15,7 +15,7 @@ class Planet(SphereCollideObject):
         self.modelNode.setPos(posVec)
         self.modelNode.setScale(scaleVec)
 
-        #self.modelNode.setName(nodeName)
+        self.modelNode.setName(nodeName)
         tex = loader.loadTexture(texPath)
         self.modelNode.setTexture(tex, 1)
 
@@ -26,7 +26,7 @@ class Drone(SphereCollideObject):
         self.modelNode.setPos(posVec)
         self.modelNode.setScale(scaleVec)
 
-        #self.modelNode.setName(nodeName)
+        self.modelNode.setName(nodeName)
         tex = loader.loadTexture(texPath)
         self.modelNode.setTexture(tex, 1)
 
@@ -50,7 +50,7 @@ class SpaceStation(CapsuleCollidableObject):
         self.modelNode.setPos(posVec)
         self.modelNode.setScale(scaleVec)
 
-        #self.modelNode.setName(nodeName)
+        self.modelNode.setName(nodeName)
         tex = loader.loadTexture(texPath)
         self.modelNode.setTexture(tex, 1)
 

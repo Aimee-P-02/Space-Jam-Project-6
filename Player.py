@@ -397,7 +397,7 @@ class SpaceShip(SphereCollideObject):
         if shooter in Missile.Intervals:
             Missile.Intervals[shooter].finish()
 
-        elif shooter in LargeMissile.AltIntervals:
+        if shooter in LargeMissile.AltIntervals:
             print(victim, " hit at", intoPosition)
             self.AltDestroyObject(victim, intoPosition)
 
