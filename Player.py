@@ -46,6 +46,7 @@ class SpaceShip(SphereCollideObject):
         self.EnableHud()
         self.cntExplode = 0
         self.explodeIntervals = {}
+        self.altExplodeIntervals = {}
         
         self.traverser = traverser
         self.handler = CollisionHandlerEvent()
@@ -406,8 +407,9 @@ class SpaceShip(SphereCollideObject):
 
 
     def DestroyObject(self, hitID, hitPosition):
-        nodeID = self.render.find(hitID)
+        nodeID = self.render.find("**/" + hitID + "*")
         nodeID.detachNode()
+        
         
         self.setParticles()
 
@@ -415,12 +417,13 @@ class SpaceShip(SphereCollideObject):
         self.Explode()
         
     def AltDestroyObject(self, hitID, hitPosition):
-        nodeID = self.render.find(hitID)
+        nodeID = self.render.find("**/" + hitID + "*")
         nodeID.detachNode()
+        
         self.setAltParticles()
 
         self.explodeNode.setPos(hitPosition)
-        self.Explode()
+        self.AltExplode()
 
    
 
@@ -431,6 +434,12 @@ class SpaceShip(SphereCollideObject):
         self.explodeIntervals[tag] = LerpFunc(self.ExplodeLight, duration = 4.0)
         self.explodeIntervals[tag].start()
 
+    def AltExplode(self):
+        self.cntExplode += 1
+        tag = 'particles-' + str(self.cntExplode)
+
+        self.altExplodeIntervals[tag] = LerpFunc(self.ExplodeLight, duration = 4.0)
+        self.altExplodeIntervals[tag].start()
 
 
     
