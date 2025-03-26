@@ -16,22 +16,26 @@ class MyApp(ShowBase):
         #base.disableMouse()
         
 
+
+        self.cTrav = CollisionTraverser()
+        self.cTrav.traverse(self.render)
+
         self.setUpUniverse()
         self.setUpPlanets()
         self.setUpSpaceShip()
         self.setUpSpaceStation()
-        self.setCamera()
-
-        self.cTrav = CollisionTraverser()
-        self.cTrav.traverse(self.render)
+        self.setCamera() 
 
         self.pusher = CollisionHandlerPusher()
         self.pusher.addCollider(self.spaceShip.collisionNode, self.spaceShip.modelNode)
         self.cTrav.addCollider(self.spaceShip.collisionNode, self.pusher)
 
-        self.cTrav.showCollisions(self.render)
+        #self.cTrav.showCollisions(self.render)
 
         fullCycle = 60
+
+        
+        
         
 
         for j in range(fullCycle):
