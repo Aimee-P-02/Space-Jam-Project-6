@@ -52,6 +52,9 @@ class SpaceShip(SphereCollideObject):
         self.handler = CollisionHandlerEvent()
         self.handler.addInPattern('into')
         self.accept('into', self.HandleInto)
+        self.explodeNode = self.render.attachNewNode('ExplosionEffects')
+        self.setParticles()
+        
        
         
 
@@ -326,7 +329,9 @@ class SpaceShip(SphereCollideObject):
     def CheckIntervals(self, tasK):
         for i in Missile.Intervals:
             if not Missile.Intervals[i].isPlaying():
+                print("my missile cnode" + str(Missile.cNodes[i]))
                 Missile.cNodes[i].detachNode()
+                print("my missile model" + str(Missile.fireModels[i]))
                 Missile.fireModels[i].detachNode()
 
                 del Missile.Intervals[i]
@@ -344,12 +349,12 @@ class SpaceShip(SphereCollideObject):
     def CheckAltIntervals(self, tasK):
         for i in LargeMissile.AltIntervals:
             if not LargeMissile.AltIntervals[i].isPlaying():
-                LargeMissile.cNodes[i].detachNode()
+                LargeMissile.AltcNodes[i].detachNode()
                 LargeMissile.fireModels[i].detachNode()
 
                 del LargeMissile.AltIntervals[i]
                 del LargeMissile.fireModels[i]
-                del LargeMissile.cNodes[i]
+                del LargeMissile.AltcNodes[i]
                 del LargeMissile.collisionSolids[i]
 
                 print(i + ' has reached the end of its fire solution')
@@ -384,22 +389,21 @@ class SpaceShip(SphereCollideObject):
         victim = tempVar[0]
         print("Victim: " + str(victim))
 
-        strippedString = re.sub(r'[0-9]', '', victim)
+        pattern = r'[0-60]'
+
+        strippedString = re.sub(pattern, '', victim)
        
 
 
-        if 'Drone' in strippedString or 'Planet' in strippedString or 'SpaceStation' in strippedString:
+        if (strippedString in ["Drone", "Planet", "Space Station"]):
             print(victim, ' hit at ', intoPosition)
             self.DestroyObject(victim, intoPosition)
             
             
             
-        if shooter in Missile.Intervals:
-            Missile.Intervals[shooter].finish()
+            if shooter in Missile.Intervals:
+                Missile.Intervals[shooter].finish()
 
-        if shooter in LargeMissile.AltIntervals:
-            print(victim, " hit at", intoPosition)
-            self.AltDestroyObject(victim, intoPosition)
 
         
         print(shooter + ' is done.')
@@ -407,24 +411,13 @@ class SpaceShip(SphereCollideObject):
 
 
     def DestroyObject(self, hitID, hitPosition):
-        nodeID = self.render.find("**/" + hitID + "*")
+    
+        nodeID = self.render.find(hitID)
+        print("node id" + str(nodeID))
         nodeID.detachNode()
-        
-        
-        self.setParticles()
-
         self.explodeNode.setPos(hitPosition)
         self.Explode()
         
-    def AltDestroyObject(self, hitID, hitPosition):
-        nodeID = self.render.find("**/" + hitID + "*")
-        nodeID.detachNode()
-        
-        self.setAltParticles()
-
-        self.explodeNode.setPos(hitPosition)
-        self.AltExplode()
-
    
 
     def Explode(self):
@@ -434,12 +427,7 @@ class SpaceShip(SphereCollideObject):
         self.explodeIntervals[tag] = LerpFunc(self.ExplodeLight, duration = 4.0)
         self.explodeIntervals[tag].start()
 
-    def AltExplode(self):
-        self.cntExplode += 1
-        tag = 'particles-' + str(self.cntExplode)
-
-        self.altExplodeIntervals[tag] = LerpFunc(self.ExplodeLight, duration = 4.0)
-        self.altExplodeIntervals[tag].start()
+    
 
 
     
@@ -457,13 +445,17 @@ class SpaceShip(SphereCollideObject):
         self.explodeEffect.loadConfig('./Assets/Part-Efx/basic_xpld_efx.ptf')
         self.explodeEffect.setScale(20)
         self.explodeNode = self.render.attachNewNode('ExplosionEffects')
+        
+        
 
     def setAltParticles(self):
         base.enableParticles()
         self.explodeEffect = ParticleEffect()
         self.explodeEffect.loadConfig('./Assets/Part-Efx/basic_xpld_efx.ptf')
         self.explodeEffect.setScale(40)
-        self.explodeNode = self.render.attachNewNode('ExplosionEffects')
+
+    
+        
 
         
 

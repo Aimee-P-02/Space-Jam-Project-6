@@ -27,7 +27,7 @@ class MyApp(ShowBase):
         self.pusher.addCollider(self.spaceShip.collisionNode, self.spaceShip.modelNode)
         self.cTrav.addCollider(self.spaceShip.collisionNode, self.pusher)
 
-        #self.cTrav.showCollisions(self.render)
+        self.cTrav.showCollisions(self.render)
 
         fullCycle = 60
 
@@ -41,7 +41,7 @@ class MyApp(ShowBase):
             nickName = "Drone" + str(spaceJamClasses.Drone.dronecount)
 
             self.DrawCloudDefense(self.Planet1, nickName)
-            self.drawBaseBallSeams(self.spaceStation, nickName, j, fullCycle, 2)
+            #self.drawBaseBallSeams(self.spaceStation, nickName, j, fullCycle, 2)
         
 
         
@@ -69,7 +69,7 @@ class MyApp(ShowBase):
         
         self.spaceShip = playerClass.SpaceShip(self.loader, self.cTrav, self.taskMgr, self.accept, "./Assets/Spaceships/Dumbledore.egg", self.render, "Spaceship", "./Assets/Spaceships/spacejet_C.png", (1500,1000, -100), 50)
 
-        self.spaceStation = spaceJamClasses.SpaceStation(self.loader, "./Assets/Space Station/spaceStation.egg", self.render,"SpaceStation", "./Assets/Space Station/SpaceStation1_Dif2.png", (750, 275, 90), 25)
+        self.spaceStation = spaceJamClasses.SpaceStation(self.loader, "./Assets/Space Station/spaceStation.egg", self.render,"Space Station", "./Assets/Space Station/SpaceStation1_Dif2.png", (750, 275, 90), 25)
         
     def drawBaseBallSeams(self, centralObject, droneName, step, numSeams, radius = 1):
         unitVec = defensePaths.BaseballSeams(step, numSeams, B = 0.4)

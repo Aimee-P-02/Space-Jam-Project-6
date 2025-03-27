@@ -16,22 +16,26 @@ class Planet(SphereCollideObject):
         self.modelNode.setScale(scaleVec)
 
         self.modelNode.setName(nodeName)
+        print("node name:" + str(nodeName))
         tex = loader.loadTexture(texPath)
         self.modelNode.setTexture(tex, 1)
 
 
 class Drone(SphereCollideObject):
+    
+    dronecount = 0
+
     def __init__(self, loader: Loader, modelPath: str, parentNode: NodePath, nodeName: str, texPath: str, posVec: Vec3, scaleVec: float):
         super(Drone, self).__init__(loader, modelPath, parentNode, nodeName, Vec3(0,0,0), 3.5)
         self.modelNode.setPos(posVec)
         self.modelNode.setScale(scaleVec)
 
         self.modelNode.setName(nodeName)
+        print("node name:" + str(nodeName))
         tex = loader.loadTexture(texPath)
         self.modelNode.setTexture(tex, 1)
 
 
-    dronecount = 0
 
 
 class Universe(InverseSphereCollideObject):
@@ -41,6 +45,7 @@ class Universe(InverseSphereCollideObject):
        self.modelNode.setScale(scaleVec)
 
        self.modelNode.setName(nodeName)
+       print("node name:" + str(nodeName))
        tex = loader.loadTexture(texPath)
        self.modelNode.setTexture(tex, 1)
 
@@ -51,6 +56,7 @@ class SpaceStation(CapsuleCollidableObject):
         self.modelNode.setScale(scaleVec)
 
         self.modelNode.setName(nodeName)
+        print("node name:" + str(nodeName))
         tex = loader.loadTexture(texPath)
         self.modelNode.setTexture(tex, 1)
 
@@ -67,6 +73,7 @@ class Missile(SphereCollideObject):
         self.modelNode.setScale(scaleVec)
         self.modelNode.setPos(posVec)
         self.modelNode.setName(nodeName)
+        print("node name:" + str(nodeName))
         
 
         Missile.missileCount += 1
@@ -80,7 +87,7 @@ class Missile(SphereCollideObject):
 class LargeMissile(SphereCollideObject):
 
     fireModels = {}
-    cNodes = {}
+    AltcNodes = {}
     collisionSolids = {}
     AltIntervals = {}
     LargeMissileCount = 0
@@ -92,12 +99,12 @@ class LargeMissile(SphereCollideObject):
 
         LargeMissile.LargeMissileCount += 1
         LargeMissile.fireModels[nodeName] = self.modelNode
-        LargeMissile.cNodes[nodeName] = self.collisionNode
+        LargeMissile.AltcNodes[nodeName] = self.collisionNode
 
         # for debugging
 
         LargeMissile.collisionSolids[nodeName] = self.collisionNode.node().getSolid(0)
-        LargeMissile.cNodes[nodeName].show()
+        LargeMissile.AltcNodes[nodeName].show()
         print("fire alternate torpedo #" + str(LargeMissile.LargeMissileCount))
 
 
