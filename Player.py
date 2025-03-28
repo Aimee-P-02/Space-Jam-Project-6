@@ -44,6 +44,7 @@ class SpaceShip(SphereCollideObject):
         self.taskMgr.add(self.CheckIntervals, 'checkMissiles', 34)
         self.taskMgr.add(self.CheckAltIntervals, 'checkLargeMissiles', 34)
         self.EnableHud()
+        self.setParticles()
         self.cntExplode = 0
         self.explodeIntervals = {}
         self.altExplodeIntervals = {}
@@ -53,7 +54,7 @@ class SpaceShip(SphereCollideObject):
         self.handler.addInPattern('into')
         self.accept('into', self.HandleInto)
         self.explodeNode = self.render.attachNewNode('ExplosionEffects')
-        self.setParticles()
+        
         
        
         
@@ -389,20 +390,24 @@ class SpaceShip(SphereCollideObject):
         victim = tempVar[0]
         print("Victim: " + str(victim))
 
-        pattern = r'[0-60]'
+        pattern = r'[0-9]'
 
         strippedString = re.sub(pattern, '', victim)
+        gameObjects = ["Drone", "Planet", "Space Station"]
        
 
 
-        if (strippedString in ["Drone", "Planet", "Space Station"]):
+        if (strippedString in gameObjects):
             print(victim, ' hit at ', intoPosition)
             self.DestroyObject(victim, intoPosition)
             
-            
-            
+        
             if shooter in Missile.Intervals:
                 Missile.Intervals[shooter].finish()
+
+            else:
+                LargeMissile.AltIntervals[shooter].finish()
+            
 
 
         

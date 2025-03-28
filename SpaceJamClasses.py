@@ -93,7 +93,7 @@ class LargeMissile(SphereCollideObject):
     LargeMissileCount = 0
 
     def __init__(self, loader: Loader, modelPath: str, parentNode: NodePath, nodeName: str, posVec: Vec3, scaleVec: float = 3.5):
-        super(LargeMissile, self).__init__(loader, modelPath, parentNode, nodeName, Vec3(0,0,0), 3.0)
+        super(LargeMissile, self).__init__(loader, modelPath, parentNode, nodeName, Vec3(0,0,0), 6.0)
         self.modelNode.setScale(scaleVec)
         self.modelNode.setPos(posVec)
 
